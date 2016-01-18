@@ -1,12 +1,18 @@
-var prodArray = [[]];
+var prodArray = [[]]; //stores Product Objects
 
+//Product Constructor defined below
 function Product (productName, filePath) {
   this.productName = productName;
   this.filePath = filePath;
+  this.productClicksTracker = 0;
 
   prodArray.push(this.Product);
+  console.log(prodArray);
 }
 
+var globalClicksTracker = 0; //tracks number of products clicked, regardless of selection
+
+//all Product Objects are created below
 var prodOne = new Product ('R2D2 Bag', 'img/prod1.jpg');
 console.log(prodOne);
 var prodTwo = new Product ('Banana Slicer', 'img/prod1.jpg');
@@ -26,3 +32,18 @@ var prodFourteen = new Product ('Death Star Wine Glass', 'img/prod14.jpg');
 var displayWindowOne = document.getElementById('productOne');
 var displayWindowTwo = document.getElementById('productTwo');
 var displayWindowThree = document.getElementById('productThree');
+
+displayWindowOne.addEventListener('click', handleProductClick);
+displayWindowTwo.addEventListener('click', handleProductClick);
+displayWindowThree.addEventListener('click', handleProductClick);
+
+function handleProductClick(event) {
+  if (globalClicksTracker < 14) {
+  globalClicksTracker += 1;
+  console.log('there have been ' + globalClicksTracker + ' global clicks so far')
+
+} else {
+  console.log('more than 14 clicks, trigger button yo');
+};
+}
+displayWindowOne.innerHTML = '<img src="img/prod3.jpg" alt="" />';
