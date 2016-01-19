@@ -39,6 +39,7 @@ prodArray[13] = new Product ('Death Star Wine Glass', 'img/prod14.jpg');
 var displayWindowOne = document.getElementById('productOne');
 var displayWindowTwo = document.getElementById('productTwo');
 var displayWindowThree = document.getElementById('productThree');
+var buttonEventTracker = document.getElementById('loadButton');
 
 
 function randomProductsDisplay () {
@@ -47,23 +48,18 @@ function randomProductsDisplay () {
  globalRandNumOne = randNumOne; //saves random number for later use
  displayWindowOne.innerHTML = '<img src="' + prodArray[randNumOne].filePath +'" alt = "">';
  var randNumTwo = Math.floor(Math.random() * 14); //saves random number for later use
- if (randNumTwo === randNumOne) {
+ while (randNumTwo === randNumOne) {
    var randNumTwo = Math.floor(Math.random() * 14);
    globalRandNumTwo = randNumTwo; //saves random number for later use
-   displayWindowTwo.innerHTML = '<img src="' + prodArray[randNumTwo].filePath +'" alt = "">';
- } else {
-   globalRandNumTwo = randNumTwo; //saves random number for later use
-   displayWindowTwo.innerHTML = '<img src="' + prodArray[randNumTwo].filePath +'" alt = "">';
  };
+   displayWindowTwo.innerHTML = '<img src="' + prodArray[randNumTwo].filePath +'" alt = "">';
  var randNumThree = Math.floor(Math.random() * 14);
- if (randNumThree === randNumTwo || randNumThree === randNumOne) {
+ while (randNumThree === randNumTwo || randNumThree === randNumOne) {
    var randNumThree = Math.floor(Math.random() * 14);
    globalRandNumThree = randNumThree; //saves random number for later use
-   displayWindowThree.innerHTML = '<img src="' + prodArray[randNumThree].filePath +'" alt = "">';
- } else {
-   globalRandNumThree = randNumThree;
-   displayWindowThree.innerHTML = '<img src="' + prodArray[randNumThree].filePath +'" alt = "">';
- };
+ } ;
+    displayWindowThree.innerHTML = '<img src="' + prodArray[randNumThree].filePath +'" alt = "">';
+
  //3 lines below count the number of impressions per product
  prodArray[globalRandNumOne].productImpressionsTracker++;
  prodArray[globalRandNumTwo].productImpressionsTracker++;
@@ -75,6 +71,7 @@ randomProductsDisplay(); //calls the initial random product display
 displayWindowOne.addEventListener('click', handleWindowOneClick);
 displayWindowTwo.addEventListener('click', handleWindowTwoClick);
 displayWindowThree.addEventListener('click', handleWindowThreeClick);
+buttonEventTracker.addEventListener('click', handleButtonClick);
 
 function handleWindowOneClick (event) {
   handleProductClick(); //adds to global click counter
@@ -102,14 +99,123 @@ function handleWindowThreeClick (event) {
   console.log(prodArray[globalRandNumThree].productName+ ' was clicked. Its been clicked ' + prodArray[globalRandNumThree].productClicksTracker + ' times so far')
   randomProductsDisplay();
 }
+//data for chart initiated below
+var data = {
+  labels: [],
+  datasets: [{
+    label: 'Times Viewed',
+    fillColor: "rgba(220,220,220,0.5)",
+    strokeColor: "rgba(220,220,220,0.8)",
+    highlightFill: "rgba(220,220,220,0.75)",
+    highlightStroke: "rgba(220,220,220,1)",
+    data: []
+  },
+  {
+    label: 'Times Clicked',
+    fillColor: "rgba(420,420,220,0.5)",
+    strokeColor: "rgba(220,220,220,0.8)",
+    highlightFill: "rgba(220,220,220,0.75)",
+    highlightStroke: "rgba(220,220,220,1)",
+    data: []
+  }
+]
+}
+
+var barChartTwoData = {
+  labels: [],
+  datasets: [{
+    label: 'Left Clicks',
+    fillColor: "rgba(220,220,220,0.5)",
+    strokeColor: "rgba(220,220,220,0.8)",
+    highlightFill: "rgba(220,220,220,0.75)",
+    highlightStroke: "rgba(220,220,220,1)",
+    data: []
+  },
+  {
+    label: 'Middle Clicks',
+    fillColor: "rgba(420,420,220,0.5)",
+    strokeColor: "rgba(220,220,220,0.8)",
+    highlightFill: "rgba(220,220,220,0.75)",
+    highlightStroke: "rgba(220,220,220,1)",
+    data: []
+  },
+  {
+    label: 'Right Clicks',
+    fillColor: "rgba(620,420,220,0.5)",
+    strokeColor: "rgba(620,220,220,0.8)",
+    highlightFill: "rgba(220,220,220,0.75)",
+    highlightStroke: "rgba(220,220,220,1)",
+    data: []
+  }
+]
+}
+
+var pieData = [{
+  value: "",
+  color:"#F7464A",
+  highlight: "#FF5A5E",
+  label: "Left Clicks"
+  },
+  {
+    value: "",
+    color:"#46BFBD",
+    highlight: "#5AD3D1",
+    label: "Middle Clicks"
+  },
+  {
+    value: "",
+    color: "#FDB45C",
+    highlight: "#FFC870",
+    label: "Right Clicks"
+  }
+]
+
 
 //function below handles global click tracking
 function handleProductClick() {
-  if (globalClicksTracker < 14) {
+  if (globalClicksTracker < 3) {
   globalClicksTracker += 1;
   console.log('there have been ' + globalClicksTracker + ' global clicks so far');
 
 } else {
   document.getElementById('loadButton').className = "loadButton"; //loads button after specified number of global clicks
 };
+}
+//chart functionality below
+
+function handleButtonClick (event) {
+  //populates pieChartOne
+  pieData[0].value = globalLeftClickTracker;
+  pieData[1].value = globalCenterClickTracker;
+  pieData[2].value = globalRightClickTracker;
+
+  //populates parts of the graph datasets
+  for (var i = 0; i <prodArray.length; i++) {
+    data.labels[i] = prodArray[i].productName;
+    data.datasets[0].data[i] = prodArray[i].productImpressionsTracker;
+    data.datasets[1].data[i] = prodArray[i].productClicksTracker;
+    barChartTwoData.labels[i] = prodArray[i].productName;
+    barChartTwoData.datasets[0].data[i] = prodArray[i].rightClickTracker;
+    barChartTwoData.datasets[1].data[i] = prodArray[i].middleClickTracker;
+    barChartTwoData.datasets[2].data[i] = prodArray[i].leftClickTracker;
+
+  }
+  //unhides canvas
+  var barChart = document.getElementById('barChart').getContext('2d');
+  new Chart(barChart).Bar(data);
+  var pieChartOne = document.getElementById('pieChartOne').getContext('2d');
+  new Chart(pieChartOne).Pie(pieData);
+  var barChartTwo = document.getElementById('barChartTwo').getContext('2d');
+  new Chart(barChartTwo).Bar(barChartTwoData);
+  //reveals canvas elements along with associated h3 elements
+  document.getElementById('barChartContainer').className= 'showCanvas';
+  document.getElementById('pieChartContainer').className = 'showCanvas';
+  document.getElementById('barChartHeader').className = 'showCanvas';
+  document.getElementById('pieChartHeader').className = 'showCanvas';
+  document.getElementById('canvasContainer').className = 'showCanvas';
+  document.getElementById('pieChartOne').className = 'showCanvas';
+  document.getElementById('barChart').className = 'showCanvas';
+  document.getElementById('barChartTwo').className = 'showCanvas';
+  document.getElementById('barChartTwoHeader').className = 'showCanvas';
+  document.getElementById('barChartTwoContainer').className = 'showCanvas';
 }
