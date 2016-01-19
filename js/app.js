@@ -39,6 +39,7 @@ prodArray[13] = new Product ('Death Star Wine Glass', 'img/prod14.jpg');
 var displayWindowOne = document.getElementById('productOne');
 var displayWindowTwo = document.getElementById('productTwo');
 var displayWindowThree = document.getElementById('productThree');
+var buttonEventTracker = document.getElementById('loadButton');
 
 
 function randomProductsDisplay () {
@@ -70,6 +71,7 @@ randomProductsDisplay(); //calls the initial random product display
 displayWindowOne.addEventListener('click', handleWindowOneClick);
 displayWindowTwo.addEventListener('click', handleWindowTwoClick);
 displayWindowThree.addEventListener('click', handleWindowThreeClick);
+buttonEventTracker.addEventListener('click', handleButtonClick);
 
 function handleWindowOneClick (event) {
   handleProductClick(); //adds to global click counter
@@ -97,10 +99,31 @@ function handleWindowThreeClick (event) {
   console.log(prodArray[globalRandNumThree].productName+ ' was clicked. Its been clicked ' + prodArray[globalRandNumThree].productClicksTracker + ' times so far')
   randomProductsDisplay();
 }
+//data for chart initiated below
+var data = {
+  labels: [],
+  datasets: [{
+    label: 'Times Clicked',
+    fillColor: "rgba(220,220,220,0.5)",
+    strokeColor: "rgba(220,220,220,0.8)",
+    highlightFill: "rgba(220,220,220,0.75)",
+    highlightStroke: "rgba(220,220,220,1)",
+    data: []
+  },
+  {
+    label: 'Times Viewed',
+    fillColor: "rgba(220,220,220,0.5)",
+    strokeColor: "rgba(220,220,220,0.8)",
+    highlightFill: "rgba(220,220,220,0.75)",
+    highlightStroke: "rgba(220,220,220,1)",
+    data: []
+  }
+]
+}
 
 //function below handles global click tracking
 function handleProductClick() {
-  if (globalClicksTracker < 14) {
+  if (globalClicksTracker < 3) {
   globalClicksTracker += 1;
   console.log('there have been ' + globalClicksTracker + ' global clicks so far');
 
@@ -109,17 +132,20 @@ function handleProductClick() {
 };
 }
 //chart functionality below
-var data = {
-  labels: [],
-  datasets: [{
-    data: []
-  }]
-}
 
-for (var i = 0; i <prodArray.length; i++) {
-  data.labels[i] = prodArray[i].productName;
-  data.datasets[0].data[i] = prodArray[i].productClicksTracker;
-}
+function handleButtonClick (event) {
 
-var barChart = document.getElementById('barChart').getContext('2d');
-new Chart(barChart).Bar(data);
+  for (var i = 0; i <prodArray.length; i++) {
+    data.labels[i] = prodArray[i].productName;
+    data.datasets[0].data[i] = prodArray[i].productImpressionsTracker;
+    data.datasets[1].data[i] = prodArray[i].productClicksTracker;
+
+  }
+  //unhides canvas
+  var barChart = document.getElementById('barChart').getContext('2d');
+  new Chart(barChart).Bar(data);
+  var pieChartOne = document.getElementById('pieChartOne').getContext('2d');
+  new Chart(pieChartOne).Pie(dataOne)
+  document.getElementById('barChart').className= 'showCanvas';
+  document.getElementById('pieChartOne').className = 'showCanvas';
+}

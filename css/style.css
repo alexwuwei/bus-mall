@@ -57,6 +57,7 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 1%;
 }
 #barChart {
   border: 1px solid black;
@@ -64,4 +65,12 @@ button {
 
 #pieChartOne {
   border: 1px solid black;
+}
+
+.hideCanvas {
+  display: none;
+}
+
+.showCanvas {
+  display: flex;
 }

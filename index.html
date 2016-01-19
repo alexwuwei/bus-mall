@@ -7,7 +7,7 @@
     <meta name="viewport" content="initial-scale=1">
     <title>BusMall - Market Analysis</title>
     <link href="css/style.css" rel="stylesheet" type="text/css">
-    <script source="js/chart.js"></script>
+    <script src="js/chart.js"></script>
   </head>
   <body>
     <h2>Please click on the product you like most. You will have the option to see your results after your first 15 selections. Have fun!</h2>
@@ -23,9 +23,10 @@
 
       </section>
     </section>
-    <section id="canvasContainer">
-      <canvas id="barChart" width="300" height="300"></canvas>
-      <canvas id="pieChartOne" width="300" height="300"></canvas>
+    <section id="canvasContainer" class="hideCanvas">
+      <h2>Impressions Vs Clicks</h2>
+      <canvas id="barChart" width="600" height="300" class="hideCanvas"></canvas>
+      <canvas id="pieChartOne" width="600" height="300" class="hideCanvas"></canvas>
 
     </section>
     <script src = "js/app.js">
