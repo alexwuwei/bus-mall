@@ -18,6 +18,38 @@ h2 {
 }
 
 .product img {
-  width: 200px;
-  height: auto;
+  /*width: 200px;
+  height: auto;*/
+  width: 100%;
+  height: 100%;
+}
+
+.product:hover {
+  border: 5px solid yellow;
+}
+
+.hideButton {
+  display: none;
+}
+
+.loadButton {
+  display:inline;
+}
+
+button {
+  border: 1px solid black;
+  margin-bottom: 1%;
+  font-weight: bold;
+  font-size: 14px;
+  color: red;
+}
+
+@media (max-width: 500px) {
+  #productsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 30%;
+  }
+
 }
