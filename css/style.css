@@ -51,5 +51,17 @@ button {
     justify-content: center;
     margin-left: 30%;
   }
+}
 
+#canvasContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#barChart {
+  border: 1px solid black;
+}
+
+#pieChartOne {
+  border: 1px solid black;
 }

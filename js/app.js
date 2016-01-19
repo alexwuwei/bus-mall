@@ -47,23 +47,18 @@ function randomProductsDisplay () {
  globalRandNumOne = randNumOne; //saves random number for later use
  displayWindowOne.innerHTML = '<img src="' + prodArray[randNumOne].filePath +'" alt = "">';
  var randNumTwo = Math.floor(Math.random() * 14); //saves random number for later use
- if (randNumTwo === randNumOne) {
+ while (randNumTwo === randNumOne) {
    var randNumTwo = Math.floor(Math.random() * 14);
    globalRandNumTwo = randNumTwo; //saves random number for later use
-   displayWindowTwo.innerHTML = '<img src="' + prodArray[randNumTwo].filePath +'" alt = "">';
- } else {
-   globalRandNumTwo = randNumTwo; //saves random number for later use
-   displayWindowTwo.innerHTML = '<img src="' + prodArray[randNumTwo].filePath +'" alt = "">';
  };
+   displayWindowTwo.innerHTML = '<img src="' + prodArray[randNumTwo].filePath +'" alt = "">';
  var randNumThree = Math.floor(Math.random() * 14);
- if (randNumThree === randNumTwo || randNumThree === randNumOne) {
+ while (randNumThree === randNumTwo || randNumThree === randNumOne) {
    var randNumThree = Math.floor(Math.random() * 14);
    globalRandNumThree = randNumThree; //saves random number for later use
-   displayWindowThree.innerHTML = '<img src="' + prodArray[randNumThree].filePath +'" alt = "">';
- } else {
-   globalRandNumThree = randNumThree;
-   displayWindowThree.innerHTML = '<img src="' + prodArray[randNumThree].filePath +'" alt = "">';
- };
+ } ;
+    displayWindowThree.innerHTML = '<img src="' + prodArray[randNumThree].filePath +'" alt = "">';
+
  //3 lines below count the number of impressions per product
  prodArray[globalRandNumOne].productImpressionsTracker++;
  prodArray[globalRandNumTwo].productImpressionsTracker++;
@@ -113,3 +108,18 @@ function handleProductClick() {
   document.getElementById('loadButton').className = "loadButton"; //loads button after specified number of global clicks
 };
 }
+//chart functionality below
+var data = {
+  labels: [],
+  datasets: [{
+    data: []
+  }]
+}
+
+for (var i = 0; i <prodArray.length; i++) {
+  data.labels[i] = prodArray[i].productName;
+  data.datasets[0].data[i] = prodArray[i].productClicksTracker;
+}
+
+var barChart = document.getElementById('barChart').getContext('2d');
+new Chart(barChart).Bar(data);
