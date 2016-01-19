@@ -103,7 +103,7 @@ function handleWindowThreeClick (event) {
 var data = {
   labels: [],
   datasets: [{
-    label: 'Times Clicked',
+    label: 'Times Viewed',
     fillColor: "rgba(220,220,220,0.5)",
     strokeColor: "rgba(220,220,220,0.8)",
     highlightFill: "rgba(220,220,220,0.75)",
@@ -111,7 +111,7 @@ var data = {
     data: []
   },
   {
-    label: 'Times Viewed',
+    label: 'Times Clicked',
     fillColor: "rgba(220,220,220,0.5)",
     strokeColor: "rgba(220,220,220,0.8)",
     highlightFill: "rgba(220,220,220,0.75)",
@@ -120,6 +120,27 @@ var data = {
   }
 ]
 }
+
+var pieData = [{
+  value: "",
+  color:"#F7464A",
+  highlight: "#FF5A5E",
+  label: "Left Clicks"
+  },
+  {
+    value: "",
+    color:"#46BFBD",
+    highlight: "#5AD3D1",
+    label: "Middle Clicks"
+  },
+  {
+    value: "",
+    color: "#FDB45C",
+    highlight: "#FFC870",
+    label: "Right Clicks"
+  }
+]
+
 
 //function below handles global click tracking
 function handleProductClick() {
@@ -134,6 +155,10 @@ function handleProductClick() {
 //chart functionality below
 
 function handleButtonClick (event) {
+  //populates pieChartOne
+  pieData[0].value = globalLeftClickTracker;
+  pieData[1].value = globalCenterClickTracker;
+  pieData[2].value = globalRightClickTracker;
 
   for (var i = 0; i <prodArray.length; i++) {
     data.labels[i] = prodArray[i].productName;
@@ -145,7 +170,7 @@ function handleButtonClick (event) {
   var barChart = document.getElementById('barChart').getContext('2d');
   new Chart(barChart).Bar(data);
   var pieChartOne = document.getElementById('pieChartOne').getContext('2d');
-  new Chart(pieChartOne).Pie(dataOne)
+  new Chart(pieChartOne).Pie(pieData);
   document.getElementById('barChart').className= 'showCanvas';
   document.getElementById('pieChartOne').className = 'showCanvas';
 }
