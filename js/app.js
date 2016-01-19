@@ -112,7 +112,7 @@ var data = {
   },
   {
     label: 'Times Clicked',
-    fillColor: "rgba(220,220,220,0.5)",
+    fillColor: "rgba(420,420,220,0.5)",
     strokeColor: "rgba(220,220,220,0.8)",
     highlightFill: "rgba(220,220,220,0.75)",
     highlightStroke: "rgba(220,220,220,1)",
@@ -171,6 +171,12 @@ function handleButtonClick (event) {
   new Chart(barChart).Bar(data);
   var pieChartOne = document.getElementById('pieChartOne').getContext('2d');
   new Chart(pieChartOne).Pie(pieData);
-  document.getElementById('barChart').className= 'showCanvas';
+  document.getElementById('barChartContainer').className= 'showCanvas';
+  document.getElementById('pieChartContainer').className = 'showCanvas';
+ document.getElementById('barChartHeader').className = 'showCanvas';
+  document.getElementById('pieChartHeader').className = 'showCanvas';
+  document.getElementById('canvasContainer').className = 'showCanvas';
   document.getElementById('pieChartOne').className = 'showCanvas';
+  document.getElementById('barChart').className = 'showCanvas';
+
 }
