@@ -1,0 +1,23 @@
+h2 {
+  font-family: sans-serif;
+}
+
+#productsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: 50%;
+}
+
+.product {
+  border: 5px solid black;
+  padding: 1%;
+  width: 30%;
+  height: 40%;
+}
+
+.product img {
+  width: 200px;
+  height: auto;
+}
