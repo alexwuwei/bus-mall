@@ -13,8 +13,8 @@ h2 {
 .product {
   border: 5px solid black;
   padding: 1%;
-  width: 30%;
-  height: 40%;
+  max-width: 30%;
+  max-height: 40%;
 }
 
 .product img {
@@ -69,8 +69,17 @@ button {
   flex-direction: column;
   justify-content: flex-start;
 }
+#barChartTwoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 
-#barChart {
+#barChartTwo {
+  border: 1px solid black;
+}
+
+#barChart  {
   border: 1px solid black;
 }
 

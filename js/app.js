@@ -121,6 +121,35 @@ var data = {
 ]
 }
 
+var barChartTwoData = {
+  labels: [],
+  datasets: [{
+    label: 'Left Clicks',
+    fillColor: "rgba(220,220,220,0.5)",
+    strokeColor: "rgba(220,220,220,0.8)",
+    highlightFill: "rgba(220,220,220,0.75)",
+    highlightStroke: "rgba(220,220,220,1)",
+    data: []
+  },
+  {
+    label: 'Middle Clicks',
+    fillColor: "rgba(420,420,220,0.5)",
+    strokeColor: "rgba(220,220,220,0.8)",
+    highlightFill: "rgba(220,220,220,0.75)",
+    highlightStroke: "rgba(220,220,220,1)",
+    data: []
+  },
+  {
+    label: 'Right Clicks',
+    fillColor: "rgba(620,420,220,0.5)",
+    strokeColor: "rgba(620,220,220,0.8)",
+    highlightFill: "rgba(220,220,220,0.75)",
+    highlightStroke: "rgba(220,220,220,1)",
+    data: []
+  }
+]
+}
+
 var pieData = [{
   value: "",
   color:"#F7464A",
@@ -160,10 +189,15 @@ function handleButtonClick (event) {
   pieData[1].value = globalCenterClickTracker;
   pieData[2].value = globalRightClickTracker;
 
+  //populates parts of the graph datasets
   for (var i = 0; i <prodArray.length; i++) {
     data.labels[i] = prodArray[i].productName;
     data.datasets[0].data[i] = prodArray[i].productImpressionsTracker;
     data.datasets[1].data[i] = prodArray[i].productClicksTracker;
+    barChartTwoData.labels[i] = prodArray[i].productName;
+    barChartTwoData.datasets[0].data[i] = prodArray[i].rightClickTracker;
+    barChartTwoData.datasets[1].data[i] = prodArray[i].middleClickTracker;
+    barChartTwoData.datasets[2].data[i] = prodArray[i].leftClickTracker;
 
   }
   //unhides canvas
@@ -171,12 +205,17 @@ function handleButtonClick (event) {
   new Chart(barChart).Bar(data);
   var pieChartOne = document.getElementById('pieChartOne').getContext('2d');
   new Chart(pieChartOne).Pie(pieData);
+  var barChartTwo = document.getElementById('barChartTwo').getContext('2d');
+  new Chart(barChartTwo).Bar(barChartTwoData);
+  //reveals canvas elements along with associated h3 elements
   document.getElementById('barChartContainer').className= 'showCanvas';
   document.getElementById('pieChartContainer').className = 'showCanvas';
- document.getElementById('barChartHeader').className = 'showCanvas';
+  document.getElementById('barChartHeader').className = 'showCanvas';
   document.getElementById('pieChartHeader').className = 'showCanvas';
   document.getElementById('canvasContainer').className = 'showCanvas';
   document.getElementById('pieChartOne').className = 'showCanvas';
   document.getElementById('barChart').className = 'showCanvas';
-
+  document.getElementById('barChartTwo').className = 'showCanvas';
+  document.getElementById('barChartTwoHeader').className = 'showCanvas';
+  document.getElementById('barChartTwoContainer').className = 'showCanvas';
 }
