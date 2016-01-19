@@ -1,4 +1,7 @@
 var prodArray = []; //stores Product Objects
+var globalRandNumOne = 0;
+var globalRandNumTwo = 0;
+var globalRandNumThree = 0;
 
 //Product Constructor defined below
 function Product (productName, filePath) {
@@ -33,31 +36,53 @@ var displayWindowThree = document.getElementById('productThree');
 function randomProductsDisplay () {
 
  var randNumOne = Math.floor(Math.random() * 14);
+ globalRandNumOne = randNumOne; //saves random number for later use
  displayWindowOne.innerHTML = '<img src="' + prodArray[randNumOne].filePath +'" alt = "">';
  var randNumTwo = Math.floor(Math.random() * 14);
  if (randNumTwo === randNumOne) {
    var randNumTwo = Math.floor(Math.random() * 14);
+   globalRandNumTwo = randNumTwo;
    displayWindowTwo.innerHTML = '<img src="' + prodArray[randNumTwo].filePath +'" alt = "">';
  } else {
+   globalRandNumTwo = randNumTwo;
    displayWindowTwo.innerHTML = '<img src="' + prodArray[randNumTwo].filePath +'" alt = "">';
  };
  var randNumThree = Math.floor(Math.random() * 14);
  if (randNumThree === randNumTwo || randNumThree === randNumOne) {
    var randNumThree = Math.floor(Math.random() * 14);
+   globalRandNumThree = randNumThree;
    displayWindowThree.innerHTML = '<img src="' + prodArray[randNumThree].filePath +'" alt = "">';
  } else {
+   globalRandNumThree = randNumThree;
    displayWindowThree.innerHTML = '<img src="' + prodArray[randNumThree].filePath +'" alt = "">';
  };
- // displayWindowThree.innerHTML = '<img src="' + prodArray[Math.floor(Math.random() * 14)].filePath +'" alt = "">'
 }
 
-randomProductsDisplay();
+randomProductsDisplay(); //calls the initial random product display
 
-displayWindowOne.addEventListener('click', handleProductClick);
-displayWindowTwo.addEventListener('click', handleProductClick);
-displayWindowThree.addEventListener('click', handleProductClick);
+displayWindowOne.addEventListener('click', handleWindowOneClick);
+displayWindowTwo.addEventListener('click', handleWindowTwoClick);
+displayWindowThree.addEventListener('click', handleWindowThreeClick);
 
-function handleProductClick(event) {
+function handleWindowOneClick (event) {
+  prodArray[globalRandNumOne].productClicksTracker++;
+  console.log(prodArray[globalRandNumOne].productName+ ' was clicked. Its been clicked ' + prodArray[globalRandNumOne].productClicksTracker + ' times so far');
+  randomProductsDisplay();
+}
+
+function handleWindowTwoClick (event) {
+  prodArray[globalRandNumTwo].productClicksTracker++;
+  console.log(prodArray[globalRandNumTwo].productName+ ' was clicked. Its been clicked ' + prodArray[globalRandNumTwo].productClicksTracker + ' times so far')
+  randomProductsDisplay();
+}
+
+function handleWindowThreeClick (event) {
+  prodArray[globalRandNumThree].productClicksTracker++;
+  console.log(prodArray[globalRandNumThree].productName+ ' was clicked. Its been clicked ' + prodArray[globalRandNumThree].productClicksTracker + ' times so far')
+  randomProductsDisplay();
+}
+
+function handleProductClick() {
   if (globalClicksTracker < 16) {
   globalClicksTracker += 1;
   console.log('there have been ' + globalClicksTracker + ' global clicks so far');
