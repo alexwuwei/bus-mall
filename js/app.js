@@ -44,26 +44,26 @@ var buttonEventTracker = document.getElementById('loadButton');
 
 function randomProductsDisplay () {
 
- var randNumOne = Math.floor(Math.random() * 14);
- globalRandNumOne = randNumOne; //saves random number for later use
- displayWindowOne.innerHTML = '<img src="' + prodArray[randNumOne].filePath +'" alt = "">';
- var randNumTwo = Math.floor(Math.random() * 14); //saves random number for later use
- while (randNumTwo === randNumOne) {
-   var randNumTwo = Math.floor(Math.random() * 14);
-   globalRandNumTwo = randNumTwo; //saves random number for later use
- };
-   displayWindowTwo.innerHTML = '<img src="' + prodArray[randNumTwo].filePath +'" alt = "">';
- var randNumThree = Math.floor(Math.random() * 14);
- while (randNumThree === randNumTwo || randNumThree === randNumOne) {
-   var randNumThree = Math.floor(Math.random() * 14);
-   globalRandNumThree = randNumThree; //saves random number for later use
- } ;
-    displayWindowThree.innerHTML = '<img src="' + prodArray[randNumThree].filePath +'" alt = "">';
+  var randNumOne = Math.floor(Math.random() * 14);
+  globalRandNumOne = randNumOne; //saves random number for later use
+  displayWindowOne.innerHTML = '<img src="' + prodArray[randNumOne].filePath +'" alt = "">';
+  var randNumTwo = Math.floor(Math.random() * 14); //saves random number for later use
+  while (randNumTwo === randNumOne) {
+    var randNumTwo = Math.floor(Math.random() * 14);
+    globalRandNumTwo = randNumTwo; //saves random number for later use
+  }
+  displayWindowTwo.innerHTML = '<img src="' + prodArray[randNumTwo].filePath +'" alt = "">';
+  var randNumThree = Math.floor(Math.random() * 14);
+  while (randNumThree === randNumTwo || randNumThree === randNumOne) {
+    var randNumThree = Math.floor(Math.random() * 14);
+    globalRandNumThree = randNumThree; //saves random number for later use
+  }
+  displayWindowThree.innerHTML = '<img src="' + prodArray[randNumThree].filePath +'" alt = "">';
 
  //3 lines below count the number of impressions per product
- prodArray[globalRandNumOne].productImpressionsTracker++;
- prodArray[globalRandNumTwo].productImpressionsTracker++;
- prodArray[globalRandNumThree].productImpressionsTracker++;
+  prodArray[globalRandNumOne].productImpressionsTracker++;
+  prodArray[globalRandNumTwo].productImpressionsTracker++;
+  prodArray[globalRandNumThree].productImpressionsTracker++;
 }
 
 randomProductsDisplay(); //calls the initial random product display
@@ -87,7 +87,7 @@ function handleWindowTwoClick (event) {
   prodArray[globalRandNumTwo].productClicksTracker++;
   prodArray[globalRandNumTwo].centerClickTracker++; //tracks where the image was displayed when it was clicked
   globalCenterClickTracker++; //tracks which container was clicked
-  console.log(prodArray[globalRandNumTwo].productName+ ' was clicked. Its been clicked ' + prodArray[globalRandNumTwo].productClicksTracker + ' times so far')
+  console.log(prodArray[globalRandNumTwo].productName+ ' was clicked. Its been clicked ' + prodArray[globalRandNumTwo].productClicksTracker + ' times so far');
   randomProductsDisplay();
 }
 
@@ -96,7 +96,7 @@ function handleWindowThreeClick (event) {
   prodArray[globalRandNumThree].productClicksTracker++;
   prodArray[globalRandNumThree].rightClickTracker++; //tracks where the image was displayed when it was clicked
   globalRightClickTracker++; //tracks which container was clicked
-  console.log(prodArray[globalRandNumThree].productName+ ' was clicked. Its been clicked ' + prodArray[globalRandNumThree].productClicksTracker + ' times so far')
+  console.log(prodArray[globalRandNumThree].productName+ ' was clicked. Its been clicked ' + prodArray[globalRandNumThree].productClicksTracker + ' times so far');
   randomProductsDisplay();
 }
 //data for chart initiated below
@@ -104,82 +104,82 @@ var data = {
   labels: [],
   datasets: [{
     label: 'Times Viewed',
-    fillColor: "rgba(220,220,220,0.5)",
-    strokeColor: "rgba(220,220,220,0.8)",
-    highlightFill: "rgba(220,220,220,0.75)",
-    highlightStroke: "rgba(220,220,220,1)",
+    fillColor: 'rgba(220,220,220,0.5)',
+    strokeColor: 'rgba(220,220,220,0.8)',
+    highlightFill: 'rgba(220,220,220,0.75)',
+    highlightStroke: 'rgba(220,220,220,1)',
     data: []
   },
-  {
-    label: 'Times Clicked',
-    fillColor: "rgba(420,420,220,0.5)",
-    strokeColor: "rgba(220,220,220,0.8)",
-    highlightFill: "rgba(220,220,220,0.75)",
-    highlightStroke: "rgba(220,220,220,1)",
-    data: []
-  }
+    {
+      label: 'Times Clicked',
+      fillColor: 'rgba(420,420,220,0.5)',
+      strokeColor: 'rgba(220,220,220,0.8)',
+      highlightFill: 'rgba(220,220,220,0.75)',
+      highlightStroke: 'rgba(220,220,220,1)',
+      data: []
+    }
 ]
-}
+};
 
 var barChartTwoData = {
   labels: [],
   datasets: [{
     label: 'Left Clicks',
-    fillColor: "rgba(220,220,220,0.5)",
-    strokeColor: "rgba(220,220,220,0.8)",
-    highlightFill: "rgba(220,220,220,0.75)",
-    highlightStroke: "rgba(220,220,220,1)",
+    fillColor: 'rgba(220,220,220,0.5)',
+    strokeColor: 'rgba(220,220,220,0.8)',
+    highlightFill: 'rgba(220,220,220,0.75)',
+    highlightStroke: 'rgba(220,220,220,1)',
     data: []
   },
-  {
-    label: 'Middle Clicks',
-    fillColor: "rgba(420,420,220,0.5)",
-    strokeColor: "rgba(220,220,220,0.8)",
-    highlightFill: "rgba(220,220,220,0.75)",
-    highlightStroke: "rgba(220,220,220,1)",
-    data: []
-  },
-  {
-    label: 'Right Clicks',
-    fillColor: "rgba(620,420,220,0.5)",
-    strokeColor: "rgba(620,220,220,0.8)",
-    highlightFill: "rgba(220,220,220,0.75)",
-    highlightStroke: "rgba(220,220,220,1)",
-    data: []
-  }
+    {
+      label: 'Middle Clicks',
+      fillColor: 'rgba(420,420,220,0.5)',
+      strokeColor: 'rgba(220,220,220,0.8)',
+      highlightFill: 'rgba(220,220,220,0.75)',
+      highlightStroke: 'rgba(220,220,220,1)',
+      data: []
+    },
+    {
+      label: 'Right Clicks',
+      fillColor: 'rgba(620,420,220,0.5)',
+      strokeColor: 'rgba(620,220,220,0.8)',
+      highlightFill: 'rgba(220,220,220,0.75)',
+      highlightStroke: 'rgba(220,220,220,1)',
+      data: []
+    }
 ]
-}
+};
 
 var pieData = [{
-  value: "",
-  color:"#F7464A",
-  highlight: "#FF5A5E",
-  label: "Left Clicks"
+  value: '',
+  color:'#F7464A',
+  highlight: '#FF5A5E',
+  label: 'Left Clicks'
+},
+  {
+    value: '',
+    color:'#46BFBD',
+    highlight: '#5AD3D1',
+    label: 'Middle Clicks'
   },
   {
-    value: "",
-    color:"#46BFBD",
-    highlight: "#5AD3D1",
-    label: "Middle Clicks"
-  },
-  {
-    value: "",
-    color: "#FDB45C",
-    highlight: "#FFC870",
-    label: "Right Clicks"
+    value: '',
+    color: '#FDB45C',
+    highlight: '#FFC870',
+    label: 'Right Clicks'
   }
-]
+];
 
 
 //function below handles global click tracking
 function handleProductClick() {
-  if (globalClicksTracker < 3) {
-  globalClicksTracker += 1;
-  console.log('there have been ' + globalClicksTracker + ' global clicks so far');
+  if (globalClicksTracker < 15) {
+    globalClicksTracker += 1;
+    console.log('there have been ' + globalClicksTracker + ' global clicks so far');
 
-} else {
-  document.getElementById('loadButton').className = "loadButton"; //loads button after specified number of global clicks
-};
+  } else {
+    document.getElementById('loadButton').className = 'loadButton'; //loads button after specified number of global clicks
+  }
 }
 //chart functionality below
 
