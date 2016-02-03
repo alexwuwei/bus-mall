@@ -99,6 +99,8 @@ function handleWindowThreeClick (event) {
   console.log(prodArray[globalRandNumThree].productName+ ' was clicked. Its been clicked ' + prodArray[globalRandNumThree].productClicksTracker + ' times so far');
   randomProductsDisplay();
 }
+
+
 //data for chart initiated below
 var data = {
   labels: [],
@@ -192,7 +194,7 @@ function handleButtonClick (event) {
   //populates parts of the graph datasets
   for (var i = 0; i <prodArray.length; i++) {
     data.labels[i] = prodArray[i].productName;
-    data.datasets[0].data[i] = prodArray[i].productImpressionsTracker;
+    data.datasets[0].data[i] = prodArray[i].productImpressionsTracker;    //flipped 197 and 198 on 231 and 232 
     data.datasets[1].data[i] = prodArray[i].productClicksTracker;
     barChartTwoData.labels[i] = prodArray[i].productName;
     barChartTwoData.datasets[0].data[i] = prodArray[i].rightClickTracker;
@@ -200,6 +202,8 @@ function handleButtonClick (event) {
     barChartTwoData.datasets[2].data[i] = prodArray[i].leftClickTracker;
 
   }
+
+   localStorage.setItem('chartPersist', JSON.stringify(data));
   //unhides canvas
   var barChart = document.getElementById('barChart').getContext('2d');
   new Chart(barChart).Bar(data);
@@ -219,3 +223,26 @@ function handleButtonClick (event) {
   document.getElementById('barChartTwoHeader').className = 'showCanvas';
   document.getElementById('barChartTwoContainer').className = 'showCanvas';
 }
+
+var chartData = localStorage.getItem('chartPersist');
+  if (chartData){
+    data = JSON.parse(chartData);
+    for (var i = 0; i <prodArray.length; i++) {
+      prodArray[i].productImpressionsTracker = data.datasets[0].data[i];
+      prodArray[i].productClicksTracker = data.datasets[1].data[i];
+    }
+
+  }
+  else{
+    console.log('local Storage empty ');
+    localStorage.setItem('chartPersist', JSON.stringify(data));
+  }
+
+
+var clearLS = document.getElementById('clearLSButton');
+clearLS.addEventListener('click',clearLSHandler);
+
+    function clearLSHandler (event) {
+      console.log('i just cleared the local storage');
+      localStorage.clear();
+    }
